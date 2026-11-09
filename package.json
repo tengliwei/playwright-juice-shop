@@ -1,0 +1,26 @@
+{
+  "name": "playwright-juice-shop",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui-host=127.0.0.1 --ui-port=0",
+    "report": "playwright show-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tengliwei/playwright-juice-shop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/tengliwei/playwright-juice-shop/issues"
+  },
+  "homepage": "https://github.com/tengliwei/playwright-juice-shop#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.65.0"
+  }
+}
