@@ -8,6 +8,7 @@ export class BasePage {
    */
   constructor(page) {
     this.page = page;
+    this.welcomeCloseButton = this.page.getByRole('button', { name: 'Close Welcome Banner' });
   }
 
   /**
@@ -20,13 +21,12 @@ export class BasePage {
   }
 
   /**
-  * 登记遮挡物处理器：欢迎弹窗和 cookie 横幅一出现就自动关掉
-  * @returns {Promise<void>}
-  */
+   * 登记遮挡物处理器：欢迎弹窗和 cookie 横幅一出现就自动关掉
+   * @returns {Promise<void>}
+   */
   async registerOverlayHandlers() {
-    const welcomeButton = this.page.getByRole('button', { name: 'Close Welcome Banner' });
-    await this.page.addLocatorHandler(welcomeButton, async() => {
-      await welcomeButton.click();
+    await this.page.addLocatorHandler(this.welcomeCloseButton, async() => {
+      await this.welcomeCloseButton.click();
     });
     const cookieAgreeButton = this.page.getByRole('button', { name: 'dismiss cookie message' });
     await this.page.addLocatorHandler(cookieAgreeButton, async() => {
@@ -34,4 +34,20 @@ export class BasePage {
     });
   }
 
+  /**
+   * 点开右上角的账号选单
+   * @returns {Promise<void>}
+   */
+  async openAccountMenu() {
+    const accountMenu = this.page.getByRole('button', { name: 'Show/hide account menu' });
+    await accountMenu.click();
+  }
+
+  /**
+   * 等待欢迎弹窗出现（只用来验证 handler，平常不需要调用）
+   * @returns {Promise<void>}
+   */
+  async waitForWelcomeBanner() {
+   await this.welcomeCloseButton.waitFor();
+  }
 }
