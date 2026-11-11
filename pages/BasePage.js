@@ -18,4 +18,20 @@ export class BasePage {
   async goto(path = '/') {
     await this.page.goto(path);
   }
+
+  /**
+  * 登记遮挡物处理器：欢迎弹窗和 cookie 横幅一出现就自动关掉
+  * @returns {Promise<void>}
+  */
+  async registerOverlayHandlers() {
+    const welcomeButton = this.page.getByRole('button', { name: 'Close Welcome Banner' });
+    await this.page.addLocatorHandler(welcomeButton, async() => {
+      await welcomeButton.click();
+    });
+    const cookieAgreeButton = this.page.getByRole('button', { name: 'dismiss cookie message' });
+    await this.page.addLocatorHandler(cookieAgreeButton, async() => {
+      await cookieAgreeButton.dispatchEvent('click');
+    });
+  }
+
 }

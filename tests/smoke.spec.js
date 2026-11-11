@@ -6,6 +6,7 @@ import { BasePage } from '../pages/BasePage.js';
  */
 test('首頁可以正常打開', async({ page }) => {
     const basePage = new BasePage(page);
+    await basePage.registerOverlayHandlers();
     await basePage.goto();
     await expect(page).toHaveTitle(/OWASP Juice Shop/);
 });
