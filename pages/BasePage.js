@@ -9,6 +9,7 @@ export class BasePage {
   constructor(page) {
     this.page = page;
     this.welcomeCloseButton = this.page.getByRole('button', { name: 'Close Welcome Banner' });
+    this.userProfileMenuItem = this.page.getByRole('menuitem', { name: 'Go to user profile' });
   }
 
   /**
