@@ -22,7 +22,11 @@ export class RegisterPage extends BasePage {
    * @returns {Promise<void>}
    */
   async open() {
+    const questionsLoaded = this.page.waitForResponse(response =>
+      response.url().includes('/api/SecurityQuestions')
+    );
     await this.goto('/#/register');
+    await questionsLoaded;
   }
 
   /**
