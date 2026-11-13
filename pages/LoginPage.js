@@ -1,7 +1,7 @@
 import { BasePage } from './BasePage.js';
 
 /**
- * 登录页的页面对象：封装登录页的元素定位和登录动作
+ * 登入頁的頁面物件：封裝登入頁的元素定位和登入動作
  */
 export class LoginPage extends BasePage {
   /**
@@ -16,7 +16,7 @@ export class LoginPage extends BasePage {
   }
 
   /**
-   * 打开登录页
+   * 打開登入頁
    * @returns {Promise<void>}
    */
   async open() {
@@ -24,7 +24,7 @@ export class LoginPage extends BasePage {
   }
 
   /**
-   * 只填账号密码，不按登录（空字段情境用）
+   * 只填帳號密碼，不按登入（空欄位情境用）
    * @param {string} email
    * @param {string} password
    * @returns {Promise<void>}
@@ -35,7 +35,7 @@ export class LoginPage extends BasePage {
   }
 
   /**
-   * 填入账号密码并按下登录
+   * 填入帳號密碼並按下登入
    * @param {string} email
    * @param {string} password
    * @returns {Promise<void>}

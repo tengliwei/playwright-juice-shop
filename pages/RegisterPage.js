@@ -1,7 +1,7 @@
 import { BasePage } from './BasePage.js';
 
 /**
- * 注册页的页面对象：封装注册表单的元素定位和注册动作
+ * 註冊頁的頁面物件：封裝註冊表單的元素定位和註冊動作
  */
 export class RegisterPage extends BasePage {
   /**
@@ -18,7 +18,7 @@ export class RegisterPage extends BasePage {
   }
 
   /**
-   * 打开注册页
+   * 打開註冊頁
    * @returns {Promise<void>}
    */
   async open() {
@@ -30,8 +30,8 @@ export class RegisterPage extends BasePage {
   }
 
   /**
-   * 填写注册表单并送出
-   * @param {{ email: string, password: string, answer: string, question: string }} account - 要注册的账号资料
+   * 填寫註冊表單並送出
+   * @param {{ email: string, password: string, answer: string, question: string }} account - 要註冊的帳號資料
    * @returns {Promise<void>}
    */
   async register({ email, password, answer, question = "Mother's maiden name?" }) {

@@ -4,7 +4,7 @@ import { RegisterPage } from '../pages/RegisterPage.js';
 import { LoginPage } from '../pages/LoginPage.js';
 
 /**
- * 扩展 Playwright 的 test：把页面对象注入成 fixture，spec 直接从参数拿
+ * 擴充 Playwright 的 test：把頁面物件注入成 fixture，spec 直接從參數拿
  */
 export const test = base.extend({
   /**

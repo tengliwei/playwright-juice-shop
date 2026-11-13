@@ -1,9 +1,9 @@
 /**
- * 所有页面对象的基底类别：保存 Playwright 的 page，提供共用的导航方法
+ * 所有頁面物件的基底類別：保存 Playwright 的 page，提供共用的導航方法
  */
 export class BasePage {
   /**
-   * 建立页面对象时把 page 存起来，给后续方法使用
+   * 建立頁面物件時把 page 存起來，給後續方法使用
    * @param {import('@playwright/test').Page} page - Playwright 注入的分頁物件
    */
   constructor(page) {
@@ -13,8 +13,8 @@ export class BasePage {
   }
 
   /**
-   * 打开指定路径（相对于 baseURL）
-   * @param {string} [path='/'] - 要打开的路径，不传就开首页
+   * 打開指定路徑（相對於 baseURL）
+   * @param {string} [path='/'] - 要打開的路徑，不傳就開首頁
    * @returns {Promise<void>}
    */
   async goto(path = '/') {
@@ -22,7 +22,7 @@ export class BasePage {
   }
 
   /**
-   * 登记遮挡物处理器：欢迎弹窗和 cookie 横幅一出现就自动关掉
+   * 登記遮擋物處理器：歡迎彈窗和 cookie 橫幅一出現就自動關掉
    * @returns {Promise<void>}
    */
   async registerOverlayHandlers() {
@@ -36,7 +36,7 @@ export class BasePage {
   }
 
   /**
-   * 点开右上角的账号选单
+   * 點開右上角的帳號選單
    * @returns {Promise<void>}
    */
   async openAccountMenu() {
@@ -45,7 +45,7 @@ export class BasePage {
   }
 
   /**
-   * 等待欢迎弹窗出现（只用来验证 handler，平常不需要调用）
+   * 等待歡迎彈窗出現（只用來驗證 handler，平常不需要呼叫）
    * @returns {Promise<void>}
    */
   async waitForWelcomeBanner() {
