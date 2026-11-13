@@ -14,11 +14,21 @@ export default defineConfig({
         screenshot: 'only-on-failure',
         video: 'retain-on-failure',
     },
-    projects: [
+    projects: 
+    [
         {   name: 'chromium', 
             use: { 
                 ...devices['Desktop Chrome'],
-                channel: process.env.CI ? undefined : 'chrome',
-            }}
+                channel: process.env.CI ? undefined : 'chrome'
+            },
+            dependencies: ['setup']
+        },
+        {   name: 'setup',
+            use: {
+                ...devices['Desktop Chrome'],
+                channel: process.env.CI ? undefined : 'chrome'
+            },
+            testMatch:/\.setup\.js$/
+        }
     ]
 })
