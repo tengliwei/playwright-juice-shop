@@ -12,6 +12,7 @@ export class LoginPage extends BasePage {
     this.emailInput = page.getByRole('textbox', { name: 'Text field for the login email' });
     this.passwordInput = page.getByRole('textbox', { name: 'Text field for the login password' });
     this.loginButton = page.getByRole('button', { name: 'Login', exact: true });
+    this.errorMessage = page.getByRole('alert');
   }
 
   /**
