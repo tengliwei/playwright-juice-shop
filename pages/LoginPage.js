@@ -24,14 +24,24 @@ export class LoginPage extends BasePage {
   }
 
   /**
+   * 只填账号密码，不按登录（空字段情境用）
+   * @param {string} email
+   * @param {string} password
+   * @returns {Promise<void>}
+   */
+  async fillCredentials(email, password) {
+    await this.emailInput.fill(email);
+    await this.passwordInput.fill(password);
+  }
+
+  /**
    * 填入账号密码并按下登录
    * @param {string} email
    * @param {string} password
    * @returns {Promise<void>}
    */
   async login(email, password) {
-    await this.emailInput.fill(email);
-    await this.passwordInput.fill(password);
+    await this.fillCredentials(email, password);
     await this.loginButton.click();
   }
 }

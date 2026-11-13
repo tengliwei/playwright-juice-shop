@@ -36,4 +36,26 @@ test.describe('登入', () => {
     await expect(page).toHaveURL(/#\/login/);
   });
 
+  test('兩欄都空時不能按登入', async({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.open();
+    await expect(loginPage.loginButton, '欄位空著時 Login 按鈕應該是灰的').toBeDisabled();
+  });
+
+  test('只填 email 時不能按登入', async({ page }) => {
+    const email = 'test@test.com';
+    const loginPage = new LoginPage(page);
+    await loginPage.open();
+    await loginPage.fillCredentials(email, '');
+    await expect(loginPage.loginButton, '只填 email 時 Login 按鈕應該是灰的').toBeDisabled();
+  });
+
+  test('兩欄都填時可以按登入', async({ page }) => {
+    const email = 'test@test.com';
+    const password = '111111';
+    const loginPage = new LoginPage(page);
+    await loginPage.open();
+    await loginPage.fillCredentials(email, password);
+    await expect(loginPage.loginButton, 'email 與 password 都填時 Login 按鈕應該能點擊').toBeEnabled();
+  });
 });
