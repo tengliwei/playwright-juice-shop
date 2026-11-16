@@ -2,6 +2,7 @@ import { test as base, expect } from '@playwright/test';
 import { BasePage } from '../pages/BasePage.js';
 import { RegisterPage } from '../pages/RegisterPage.js';
 import { LoginPage } from '../pages/LoginPage.js';
+import { BasketPage } from '../pages/BasketPage.js';
 
 /**
  * 擴充 Playwright 的 test：把頁面物件注入成 fixture，spec 直接從參數拿
@@ -22,6 +23,10 @@ export const test = base.extend({
   basePage: async ({ page }, use) => {
     const basePage = new BasePage(page);
     await use(basePage);
+  },
+  basketPage: async ({ page }, use) => {
+    const basketPage = new BasketPage(page);
+    await use(basketPage);
   }
 });
 
