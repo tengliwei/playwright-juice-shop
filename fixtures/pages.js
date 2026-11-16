@@ -3,6 +3,7 @@ import { BasePage } from '../pages/BasePage.js';
 import { RegisterPage } from '../pages/RegisterPage.js';
 import { LoginPage } from '../pages/LoginPage.js';
 import { BasketPage } from '../pages/BasketPage.js';
+import { ProfilePage } from '../pages/ProfilePage.js';
 
 /**
  * 擴充 Playwright 的 test：把頁面物件注入成 fixture，spec 直接從參數拿
@@ -27,6 +28,10 @@ export const test = base.extend({
   basketPage: async ({ page }, use) => {
     const basketPage = new BasketPage(page);
     await use(basketPage);
+  },
+  profilePage: async ({ page }, use) => {
+    const profilePage = new ProfilePage(page);
+    await use(profilePage);
   }
 });
 
