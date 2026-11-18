@@ -41,6 +41,10 @@ export class RegisterPage extends BasePage {
     await this.securityQuestionSelect.click();
     await this.page.getByRole('option', { name: question }).click();
     await this.answerInput.fill(answer);
+    const registerResponse = this.page.waitForResponse(response => 
+      response.url().includes('/api/SecurityAnswers') && response.request().method() === 'POST'
+    );
     await this.registerButton.click();
+    await registerResponse;
   }
 }
