@@ -8,7 +8,7 @@ test.beforeEach(async ({ page, registerPage, loginPage }) => {
     await registerPage.register({ email, password, answer: 'answer'});
     await expect(page).toHaveURL(/#\/login/);
     await loginPage.login(email, password);
-    await expect(page).toHaveURL('/\/#\/search/');
+    await expect(page).toHaveURL(/\/#\/search/);
 });
 
 test('設定使用者名稱後，重新打開頁面會顯示新名字', async ({ profilePage }) => {
