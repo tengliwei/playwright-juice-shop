@@ -12,7 +12,7 @@ export default defineConfig({
     reporter: 'html',
     forbidOnly: !!process.env.CI,
     use: {
-        baseURL: process.env.BASE_URL ?? 'http://localhost:3000',
+        baseURL: process.env.BASE_URL || 'http://localhost:3000',
         trace: 'retain-on-failure',
         screenshot: 'only-on-failure',
         video: 'retain-on-failure',
