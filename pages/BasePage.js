@@ -22,16 +22,12 @@ export class BasePage {
   }
 
   /**
-   * 登記遮擋物處理器：歡迎彈窗和 cookie 橫幅一出現就自動關掉
+   * 登記遮擋物處理器：歡迎彈窗橫幅一出現就自動關掉，cookie 改由 Fixture 處理
    * @returns {Promise<void>}
    */
   async registerOverlayHandlers() {
     await this.page.addLocatorHandler(this.welcomeCloseButton, async() => {
       await this.welcomeCloseButton.click();
-    });
-    const cookieAgreeButton = this.page.getByRole('button', { name: 'dismiss cookie message' });
-    await this.page.addLocatorHandler(cookieAgreeButton, async() => {
-      await cookieAgreeButton.dispatchEvent('click');
     });
   }
 

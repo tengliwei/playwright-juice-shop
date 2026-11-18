@@ -51,6 +51,13 @@ export const test = base.extend({
     });
     await expect(response).toBeOK();
     await use({ email, password });
+  },
+  /**
+   * 每個測試開頁前先塞好「已同意 cookie」，讓 cookie 橫幅不會出現
+   */
+  context: async({ context, baseURL }, use) => {
+    await context.addCookies([{name: 'cookieconsent_status', value: 'dismiss', url: baseURL}]);
+    await use(context);
   }
 });
 
