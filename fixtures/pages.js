@@ -41,7 +41,7 @@ export const test = base.extend({
    */
   newUser: async({ request }, use) => {
     const email = `user_${Date.now()}${randomUUID().slice(0, 8)}@test.com`;
-    const password = '111111';
+    const password = process.env.TEST_PASSWORD ?? '111111';
     const response = await request.post('/api/Users', {
       data:{
         email,
