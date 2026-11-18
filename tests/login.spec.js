@@ -6,25 +6,17 @@ test.describe('登入', () => {
     await registerPage.registerOverlayHandlers();
   })
 
-  test('正確帳密可以登入並進到商品頁', async ({ page, registerPage, loginPage }) => {
-    const email = `user_${Date.now()}@test.com`;
-    const password = '111111';
-    await registerPage.open();
-    await registerPage.register({email, password, answer: 'answer'});
-    await expect(page).toHaveURL(/#\/login/);
-    await loginPage.login(email, password);
+  test('正確帳密可以登入並進到商品頁', async ({ page, newUser, loginPage }) => {
+    await loginPage.open();
+    await loginPage.login(newUser.email, newUser.password);
     await expect(page).toHaveURL(/\/#\/search/);
     await loginPage.openAccountMenu();
-    await expect(loginPage.userProfileMenuItem).toContainText(email);
+    await expect(loginPage.userProfileMenuItem).toContainText(newUser.email);
   });
 
-  test('密碼錯誤時登入失敗並停在登入頁', async ({ page, registerPage, loginPage }) => {
-    const email = `user_${Date.now()}@test.com`;
-    const password = '111111';
-    await registerPage.open();
-    await registerPage.register({ email, password, answer: 'answer'});
-    await expect(page).toHaveURL(/#\/login/);
-    await loginPage.login(email, '222222');
+  test('密碼錯誤時登入失敗並停在登入頁', async ({ page, newUser, loginPage }) => {
+    await loginPage.open();
+    await loginPage.login(newUser.email, '222222');
     await expect(loginPage.errorMessage, '應該出現 Invalid email or password.').toBeVisible();
     await expect(page).toHaveURL(/#\/login/);
   });
