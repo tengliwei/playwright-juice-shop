@@ -1,5 +1,6 @@
 // tests/login.spec.js
 import { test, expect } from "../fixtures/pages.js";
+import loginButtonCases from '../test-data/login-buttons.json' with {type: 'json'};
 
 test.describe('登入', () => {
   test.beforeEach(async({ registerPage }) => {
@@ -21,23 +22,15 @@ test.describe('登入', () => {
     await expect(page).toHaveURL(/#\/login/);
   });
 
-  test('兩欄都空時不能按登入', async({ loginPage }) => {
-    await loginPage.open();
-    await expect(loginPage.loginButton, '欄位空著時 Login 按鈕應該是灰的').toBeDisabled();
-  });
-
-  test('只填 email 時不能按登入', async({ loginPage }) => {
-    const email = 'test@test.com';
-    await loginPage.open();
-    await loginPage.fillCredentials(email, '');
-    await expect(loginPage.loginButton, '只填 email 時 Login 按鈕應該是灰的').toBeDisabled();
-  });
-
-  test('兩欄都填時可以按登入', async({ loginPage }) => {
-    const email = 'test@test.com';
-    const password = '111111';
-    await loginPage.open();
-    await loginPage.fillCredentials(email, password);
-    await expect(loginPage.loginButton, 'email 與 password 都填時 Login 按鈕應該能點擊').toBeEnabled();
-  });
+  for(const testCase of loginButtonCases) {
+    test(`登入按鈕狀態：${ testCase.title }`, async({ loginPage }) => {
+      await loginPage.open();
+      await loginPage.fillCredentials(testCase.email, testCase.password);
+      if(!testCase.enabled) {
+        await expect(loginPage.loginButton, `${ testCase.title }，Login 按鈕狀態為不能點擊`).toBeDisabled();
+      } else{
+        await expect(loginPage.loginButton, `${ testCase.title }， Login 按鈕應該能點擊`).toBeEnabled();
+      }
+    });
+  }  
 });
