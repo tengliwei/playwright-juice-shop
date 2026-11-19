@@ -18,6 +18,12 @@ export class CheckoutPage extends BasePage {
         this.addressSubmitButton = page.getByRole('button', { name: 'Submit', exact: true });
         this.addressContinueButton = page.getByRole('button', { name: 'Continue', exact: true });
         this.deliveryContinueButton = page.getByRole('button', { name: 'Proceed to delivery method selection' });
+        this.addCardButton = page.getByRole('button', { name: 'Add new card' });
+        this.cardNameInput = page.getByRole('textbox', { name: 'Name', exact: true });
+        this.cardNumberInput = page.getByRole('spinbutton', { name: 'Card Number' });
+        this.expiryMonthSelect = page.getByRole('combobox', { name: 'Expiry Month' });
+        this.expiryYearSelect = page.getByRole('combobox', { name: 'Expiry Year' });
+        this.cardSubmitButton = page.getByRole('button', { name: 'Submit', exact: true });
     }
 
     /**
@@ -44,7 +50,7 @@ export class CheckoutPage extends BasePage {
         await this.streetAddressInput.fill(street);
         await this.cityInput.fill(city);
         const addressResponse = this.page.waitForResponse(reponse => 
-            reponse.url().includes('/api/Addresss') && reponse.request().method() === 'POST'
+            response.url().includes('/api/Addresss') && reponse.request().method() === 'POST'
         );
         await this.addressSubmitButton.click();
         await addressResponse;
@@ -70,4 +76,21 @@ export class CheckoutPage extends BasePage {
         await this.deliveryContinueButton.click();
     }
 
+    /**
+     * 在付款頁新增一張信用卡，等伺服器存好才結束
+     * @param {{ name: string, cardNumber: string, expiryMonth: string, expiryYear: string }} card
+     * @returns {Promise<void>}
+     */
+    async addCard({ name, cardNumber, expiryMonth, expiryYear }) {
+        await this.addCardButton.click();
+        await this.cardNameInput.fill(name);
+        await this.cardNumberInput.fill(cardNumber);
+        await this.expiryMonthSelect.selectOption(expiryMonth);
+        await this.expiryYearSelect.selectOption(expiryYear);
+        const addCardResponse = this.page.waitForResponse(reponse =>
+            response.url().includes('/api/Cards') && reponse.request().method() === 'POST'
+        );
+        await this.cardSubmitButton.click();
+        await addCardResponse;
+    }
 }
