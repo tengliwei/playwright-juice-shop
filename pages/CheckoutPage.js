@@ -17,6 +17,7 @@ export class CheckoutPage extends BasePage {
         this.cityInput = page.getByRole('textbox', { name: 'City'});
         this.addressSubmitButton = page.getByRole('button', { name: 'Submit', exact: true });
         this.addressContinueButton = page.getByRole('button', { name: 'Continue', exact: true });
+        this.deliveryContinueButton = page.getByRole('button', { name: 'Proceed to delivery method selection' });
     }
 
     /**
@@ -49,4 +50,16 @@ export class CheckoutPage extends BasePage {
         await address.getByRole('radio').check();
         await this.addressContinueButton.click();
     }
+
+    /**
+     * 在送貨方式頁勾選指定的送貨方式，然後按繼續
+     * @param {string} name 送貨方式名稱，例如 'Fast Delivery'
+     * @returns {Promise<void>}
+     */
+    async chooseDelivery(name) {
+        const delivery = this.page.getByRole('row').filter({ has: this.page.getByRole('cell', { name, exact: true})});
+        await delivery.getByRole('radio').check();
+        await this.deliveryContinueButton.click();
+    }
+
 }
