@@ -10,6 +10,7 @@ export class BasePage {
     this.page = page;
     this.welcomeCloseButton = this.page.getByRole('button', { name: 'Close Welcome Banner' });
     this.userProfileMenuItem = this.page.getByRole('menuitem', { name: 'Go to user profile' });
+    this.basketButton = this.page.getByRole('button', { name: 'Show the shopping cart' });
   }
 
   /**
