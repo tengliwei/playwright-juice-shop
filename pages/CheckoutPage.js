@@ -49,8 +49,8 @@ export class CheckoutPage extends BasePage {
         await this.zipCodeInput.fill(zipCode);
         await this.streetAddressInput.fill(street);
         await this.cityInput.fill(city);
-        const addressResponse = this.page.waitForResponse(reponse => 
-            response.url().includes('/api/Addresss') && reponse.request().method() === 'POST'
+        const addressResponse = this.page.waitForResponse(response => 
+            response.url().includes('/api/Addresss') && response.request().method() === 'POST'
         );
         await this.addressSubmitButton.click();
         await addressResponse;
@@ -87,8 +87,8 @@ export class CheckoutPage extends BasePage {
         await this.cardNumberInput.fill(cardNumber);
         await this.expiryMonthSelect.selectOption(expiryMonth);
         await this.expiryYearSelect.selectOption(expiryYear);
-        const addCardResponse = this.page.waitForResponse(reponse =>
-            response.url().includes('/api/Cards') && reponse.request().method() === 'POST'
+        const addCardResponse = this.page.waitForResponse(response =>
+            response.url().includes('/api/Cards') && response.request().method() === 'POST'
         );
         await this.cardSubmitButton.click();
         await addCardResponse;
