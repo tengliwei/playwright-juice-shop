@@ -21,6 +21,16 @@ export class CheckoutPage extends BasePage {
     }
 
     /**
+     * 找出表格裡「含有名字剛好是 name 的格子」的那一列
+     * @param {string} name 格子的文字
+     * @returns {import('@playwright/test').Locator}
+     */
+    tableRow(name) {
+        return this.page.getByRole('row').filter({ has: this.page.getByRole('cell', { name, exact: true })});
+    }
+
+
+    /**
      * 在結帳的地址頁新增一筆地址，等伺服器存好才結束
      * @param {{ name: string, country: string, mobile: string, zipCode: string, street: string, city: string }} address
      * @returns {Promise<void>}
@@ -46,8 +56,7 @@ export class CheckoutPage extends BasePage {
      * @returns {Promise<void>}
      */
     async selectAddress(name) {
-        const address = this.page.getByRole('row').filter({ has: this.page.getByRole('cell', { name, exact: true })});
-        await address.getByRole('radio').check();
+        await this.tableRow(name).getByRole('radio').check();
         await this.addressContinueButton.click();
     }
 
@@ -57,8 +66,7 @@ export class CheckoutPage extends BasePage {
      * @returns {Promise<void>}
      */
     async chooseDelivery(name) {
-        const delivery = this.page.getByRole('row').filter({ has: this.page.getByRole('cell', { name, exact: true})});
-        await delivery.getByRole('radio').check();
+        await this.tableRow(name).getByRole('radio').check();
         await this.deliveryContinueButton.click();
     }
 
