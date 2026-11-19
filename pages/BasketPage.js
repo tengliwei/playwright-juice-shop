@@ -10,6 +10,8 @@ export class BasketPage extends BasePage {
   constructor(page) {
     super(page);
     this.heading = page.getByRole('heading', { name: 'Your Basket' });
+    this.totalPrice = page.getByText(/Total Price/);
+    this.checkoutButton = page.getByRole('button', { name: 'Checkout', exact: true});
   }
 
   /**
@@ -18,5 +20,23 @@ export class BasketPage extends BasePage {
    */
   async open() {
     await this.goto('/#/basket');
+  }
+
+  /**
+   * 購物車表格裡某個商品的那一列
+   * @param {string} name 商品全名，例如 'Apple Juice (1000ml)'
+   * @returns {import('@playwright/test').Locator}
+   */
+  productRow(name) {
+    return this.page.getByRole('row').filter({ has: this.page.getByRole('cell', { name, exact: true }) });
+  }
+
+  /**
+   * 某個商品那一列的數量格
+   * @param {string} name
+   * @returns {import('@playwright/test').Locator}
+   */
+  quantityCell(name) {
+    return this.productRow(name).locator('.mat-column-quantity');
   }
 }
