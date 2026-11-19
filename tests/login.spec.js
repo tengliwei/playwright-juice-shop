@@ -32,5 +32,17 @@ test.describe('登入', () => {
         await expect(loginPage.loginButton, `${ testCase.title }， Login 按鈕應該能點擊`).toBeEnabled();
       }
     });
-  }  
+  }
+
+  test('登入按鈕狀態：同一頁依序切換', async({ loginPage }) => {
+    await loginPage.open();
+    for(const testCase of loginButtonCases) {
+        await loginPage.fillCredentials(testCase.email, testCase.password);
+        if(!testCase.enabled) {
+          await expect(loginPage.loginButton, `${ testCase.title }，Login 按鈕狀態為不能點擊`).toBeDisabled();
+        } else{
+          await expect(loginPage.loginButton, `${ testCase.title }， Login 按鈕應該能點擊`).toBeEnabled();
+        }  
+    };
+  });
 });
