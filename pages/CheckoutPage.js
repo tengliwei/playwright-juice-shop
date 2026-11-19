@@ -24,6 +24,7 @@ export class CheckoutPage extends BasePage {
         this.expiryMonthSelect = page.getByRole('combobox', { name: 'Expiry Month' });
         this.expiryYearSelect = page.getByRole('combobox', { name: 'Expiry Year' });
         this.cardSubmitButton = page.getByRole('button', { name: 'Submit', exact: true });
+        this.paymentContinueButton = page.getByRole('button', { name: 'Proceed to review', exact: true });
     }
 
     /**
@@ -93,4 +94,15 @@ export class CheckoutPage extends BasePage {
         await this.cardSubmitButton.click();
         await addCardResponse;
     }
+
+    /**
+     * 在付款頁勾選指定的信用卡，然後按繼續到確認頁
+     * @param {string} maskedCardNumber 畫面上遮住的卡號，例如 '************1111'
+     * @returns {Promise<void>}
+     */
+    async selectCard(maskedCardNumber) {
+        await this.tableRow(maskedCardNumber).getByRole('radio').check();
+        await this.paymentContinueButton.click();
+    }
+
 }
