@@ -6,6 +6,7 @@ import { BasketPage } from '../pages/BasketPage.js';
 import { ProfilePage } from '../pages/ProfilePage.js';
 import { randomUUID } from 'node:crypto';
 import { SearchPage } from '../pages/SearchPage.js';
+import { CheckoutPage } from '../pages/CheckoutPage.js';
 
 /**
  * 擴充 Playwright 的 test：把頁面物件注入成 fixture，spec 直接從參數拿
@@ -38,6 +39,10 @@ export const test = base.extend({
   searchPage: async ({ page }, use) => {
     const searchPage = new SearchPage(page);
     await use(searchPage);
+  },
+  checkoutPage: async ({ page }, use) => {
+    const checkoutPage = new CheckoutPage(page);
+    await use(checkoutPage);
   },
   /**
    * 透過 API 註冊一個全新帳號，交給測試使用（不經過畫面）
