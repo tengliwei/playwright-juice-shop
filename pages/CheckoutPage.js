@@ -25,6 +25,7 @@ export class CheckoutPage extends BasePage {
         this.expiryYearSelect = page.getByRole('combobox', { name: 'Expiry Year' });
         this.cardSubmitButton = page.getByRole('button', { name: 'Submit', exact: true });
         this.paymentContinueButton = page.getByRole('button', { name: 'Proceed to review', exact: true });
+        this.placeOrderButton = page.getByRole('button', { name: 'Complete your purchase' });
     }
 
     /**
@@ -104,5 +105,19 @@ export class CheckoutPage extends BasePage {
         await this.tableRow(maskedCardNumber).getByRole('radio').check();
         await this.paymentContinueButton.click();
     }
+
+    /**
+     * 在確認頁按下單，等伺服器建好訂單才往下，並回傳訂單編號
+     * @returns {Promise<string>} 伺服器回傳的訂單編號（orderConfirmation）
+     */
+    async placeOrder() {
+        const placeOrderResponse = this.page.waitForResponse(response => 
+            response.url().includes('/checkout') && response.request().method() === 'POST'
+        );
+        await this.placeOrderButton.click();
+        const body = await (await placeOrderResponse).json();
+        return body.orderConfirmation;
+    }
+
 
 }
