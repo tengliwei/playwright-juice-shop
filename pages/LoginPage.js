@@ -42,6 +42,10 @@ export class LoginPage extends BasePage {
    */
   async login(email, password) {
     await this.fillCredentials(email, password);
+    const loginResponse = this.page.waitForResponse(response => 
+      response.url().includes('/rest/user/login') && response.request().method() === 'POST'
+    );
     await this.loginButton.click();
+    await loginResponse;
   }
 }
