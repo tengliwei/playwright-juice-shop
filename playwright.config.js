@@ -9,6 +9,7 @@ export default defineConfig({
     expect: {timeout: 5_000},
     fullyParallel: true,
     retries: process.env.CI ? 2 : 0,
+    workers: process.env.CI ? 1 : 4,
     reporter: 'html',
     forbidOnly: !!process.env.CI,
     use: {
