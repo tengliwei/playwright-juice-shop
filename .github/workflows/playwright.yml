@@ -44,14 +44,16 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 14
+
       - name: Upload Pages artifact
-        if: ${{ !cancelled() }}
-        uses: actions/upload-pages-artifact@v7
+        if: ${{ !cancelled() && github.event_name == 'push' }}
+        uses: actions/upload-pages-artifact@v5
         with:
           path: playwright-report/
+
   deploy:
     needs: test
-    if: ${{ !cancelled() }}
+    if: ${{ !cancelled() && github.event_name == 'push' }}
     runs-on: ubuntu-latest
     permissions:
       pages: write
