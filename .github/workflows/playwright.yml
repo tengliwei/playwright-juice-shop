@@ -28,9 +28,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Chromium
-        run: npx playwright install --with-deps chromium
-
       - name: Wait for Juice Shop
         run: curl --silent --fail --retry 30 --retry-all-errors --retry-delay 2 http://localhost:3000 > /dev/null
 
