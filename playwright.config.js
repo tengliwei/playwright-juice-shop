@@ -10,7 +10,11 @@ export default defineConfig({
     fullyParallel: true,
     retries: process.env.CI ? 2 : 0,
     workers: process.env.CI ? 1 : 4,
-    reporter: 'html',
+    reporter: 
+    [
+        [ 'list' ],
+        [ 'html', { open: process.env.CI ? 'never' : 'on-failure' } ]
+    ],
     forbidOnly: !!process.env.CI,
     use: {
         baseURL: process.env.BASE_URL || 'http://localhost:3000',
