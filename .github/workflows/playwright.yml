@@ -44,3 +44,21 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 14
+      - name: Upload Pages artifact
+        if: ${{ !cancelled() }}
+        uses: actions/upload-pages-artifact@v7
+        with:
+          path: playwright-report/
+  deploy:
+    needs: test
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
