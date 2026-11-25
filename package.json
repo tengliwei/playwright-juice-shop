@@ -7,7 +7,7 @@
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui-host=127.0.0.1 --ui-port=0",
     "report": "playwright show-report",
-    "lint": "eslint .",
+    "lint": "eslint . --max-warnings 0",
     "format": "prettier . --write",
     "format:check": "prettier . --check"
   },
