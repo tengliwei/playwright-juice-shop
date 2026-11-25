@@ -1,6 +1,6 @@
 import { test, expect } from '../fixtures/pages.js';
 
-test('首頁可以正常打開', async ({ page, basePage }) => {
+test('首頁可以正常打開', { tag: '@smoke' }, async ({ page, basePage }) => {
   await basePage.registerOverlayHandlers();
   await basePage.goto();
   await expect(page).toHaveTitle(/OWASP Juice Shop/);

@@ -7,7 +7,7 @@ test.describe('登入', () => {
     await registerPage.registerOverlayHandlers();
   });
 
-  test('正確帳密可以登入並進到商品頁', async ({ page, newUser, loginPage }) => {
+  test('正確帳密可以登入並進到商品頁', { tag: '@smoke' }, async ({ page, newUser, loginPage }) => {
     await loginPage.open();
     await loginPage.login(newUser.email, newUser.password);
     await expect(page).toHaveURL(/\/#\/search/);
