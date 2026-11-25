@@ -9,6 +9,7 @@ export class SearchPage extends BasePage {
     super(page);
     this.openSearchButton = page.getByRole('button', { name: 'Open search' });
     this.searchInput = page.locator('app-mat-search-bar').getByRole('textbox');
+    this.closeNoticeButton = page.getByRole('button', { name: 'X', exact: true });
   }
 
   /**
@@ -44,5 +45,13 @@ export class SearchPage extends BasePage {
     );
     await this.productCard(productName).getByRole('button', { name: 'Add to Basket', exact: true }).click();
     await basketItemsResponse;
+  }
+
+  /**
+   * 關掉「已加入購物車」的提示條，避免擋住後面頁面的按鈕
+   * @returns {Promise<void>}
+   */
+  async closeBasketNotice() {
+    await this.closeNoticeButton.click();
   }
 }

@@ -14,6 +14,7 @@ test('買一瓶 Apple Juice 走完結帳，金額與訂單正確', async ({ page
   await test.step('搜尋商品並加入購物車', async () => {
     await searchPage.search('apple');
     await searchPage.addToBasket(productName);
+    await searchPage.closeBasketNotice();
   });
 
   await test.step('從購物車進入結帳', async () => {
