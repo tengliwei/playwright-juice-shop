@@ -1,42 +1,39 @@
-import { defineConfig, devices } from '@playwright/test'
-import { existsSync } from 'node:fs'
+import { defineConfig, devices } from '@playwright/test';
+import { existsSync } from 'node:fs';
 
-if(existsSync('.env')) process.loadEnvFile();
+if (existsSync('.env')) process.loadEnvFile();
 
 export default defineConfig({
-    testDir: './tests',
-    timeout: 30_000,
-    expect: {timeout: 5_000},
-    fullyParallel: true,
-    retries: process.env.CI ? 2 : 0,
-    workers: process.env.CI ? 1 : 4,
-    reporter: 
-    [
-        [ 'list' ],
-        [ 'html', { open: process.env.CI ? 'never' : 'on-failure' } ]
-    ],
-    forbidOnly: !!process.env.CI,
-    use: {
-        baseURL: process.env.BASE_URL || 'http://localhost:3000',
-        trace: 'retain-on-failure',
-        screenshot: 'only-on-failure',
-        video: 'retain-on-failure',
+  testDir: './tests',
+  timeout: 30_000,
+  expect: { timeout: 5_000 },
+  fullyParallel: true,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 1 : 4,
+  reporter: [['list'], ['html', { open: process.env.CI ? 'never' : 'on-failure' }]],
+  forbidOnly: !!process.env.CI,
+  use: {
+    baseURL: process.env.BASE_URL || 'http://localhost:3000',
+    trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+  },
+  projects: [
+    {
+      name: 'chromium',
+      use: {
+        ...devices['Desktop Chrome'],
+        channel: process.env.CI ? undefined : 'chrome',
+      },
+      dependencies: ['setup'],
     },
-    projects: 
-    [
-        {   name: 'chromium', 
-            use: { 
-                ...devices['Desktop Chrome'],
-                channel: process.env.CI ? undefined : 'chrome'
-            },
-            dependencies: ['setup']
-        },
-        {   name: 'setup',
-            use: {
-                ...devices['Desktop Chrome'],
-                channel: process.env.CI ? undefined : 'chrome'
-            },
-            testMatch:/\.setup\.js$/
-        }
-    ]
-})
+    {
+      name: 'setup',
+      use: {
+        ...devices['Desktop Chrome'],
+        channel: process.env.CI ? undefined : 'chrome',
+      },
+      testMatch: /\.setup\.js$/,
+    },
+  ],
+});

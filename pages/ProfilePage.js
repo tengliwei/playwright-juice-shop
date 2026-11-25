@@ -9,8 +9,8 @@ export class ProfilePage extends BasePage {
    */
   constructor(page) {
     super(page);
-    this.usernameInput = page.getByRole('textbox', {name: 'Text field for the username'});
-    this.setUsernameButton = page.getByRole('button', {name: 'Button to save/set the username'});
+    this.usernameInput = page.getByRole('textbox', { name: 'Text field for the username' });
+    this.setUsernameButton = page.getByRole('button', { name: 'Button to save/set the username' });
   }
 
   /**
@@ -27,8 +27,8 @@ export class ProfilePage extends BasePage {
    * @returns {Promise<void>}
    */
   async setUsername(name) {
-    const responsePromise =  this.page.waitForResponse(response => {
-        return response.url().endsWith('/profile') && response.request().method() === 'POST';
+    const responsePromise = this.page.waitForResponse((response) => {
+      return response.url().endsWith('/profile') && response.request().method() === 'POST';
     });
     await this.usernameInput.fill(name);
     await this.setUsernameButton.click();

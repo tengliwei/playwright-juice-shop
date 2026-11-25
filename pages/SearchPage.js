@@ -6,8 +6,8 @@ import { BasePage } from './BasePage.js';
 export class SearchPage extends BasePage {
   /** @param {import('@playwright/test').Page} page */
   constructor(page) {
-    super(page)
-    this.openSearchButton = page.getByRole('button', { name: 'Open search'});
+    super(page);
+    this.openSearchButton = page.getByRole('button', { name: 'Open search' });
     this.searchInput = page.locator('app-mat-search-bar').getByRole('textbox');
   }
 
@@ -28,7 +28,9 @@ export class SearchPage extends BasePage {
    * @returns {import('@playwright/test').Locator}
    */
   productCard(productName) {
-    return this.page.getByRole('article').filter({ has: this.page.getByRole('img', { name: productName, exact: true})}); 
+    return this.page
+      .getByRole('article')
+      .filter({ has: this.page.getByRole('img', { name: productName, exact: true }) });
   }
 
   /**
@@ -37,8 +39,8 @@ export class SearchPage extends BasePage {
    * @returns {Promise<void>}
    */
   async addToBasket(productName) {
-    const basketItemsResponse = this.page.waitForResponse(response => 
-        response.url().includes('/api/BasketItems') && response.request().method() === 'POST'
+    const basketItemsResponse = this.page.waitForResponse(
+      (response) => response.url().includes('/api/BasketItems') && response.request().method() === 'POST',
     );
     await this.productCard(productName).getByRole('button', { name: 'Add to Basket', exact: true }).click();
     await basketItemsResponse;

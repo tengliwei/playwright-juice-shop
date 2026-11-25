@@ -22,9 +22,7 @@ export class RegisterPage extends BasePage {
    * @returns {Promise<void>}
    */
   async open() {
-    const questionsLoaded = this.page.waitForResponse(response =>
-      response.url().includes('/api/SecurityQuestions')
-    );
+    const questionsLoaded = this.page.waitForResponse((response) => response.url().includes('/api/SecurityQuestions'));
     await this.goto('/#/register');
     await questionsLoaded;
   }
@@ -41,8 +39,8 @@ export class RegisterPage extends BasePage {
     await this.securityQuestionSelect.click();
     await this.page.getByRole('option', { name: question }).click();
     await this.answerInput.fill(answer);
-    const registerResponse = this.page.waitForResponse(response => 
-      response.url().includes('/api/SecurityAnswers') && response.request().method() === 'POST'
+    const registerResponse = this.page.waitForResponse(
+      (response) => response.url().includes('/api/SecurityAnswers') && response.request().method() === 'POST',
     );
     await this.registerButton.click();
     await registerResponse;

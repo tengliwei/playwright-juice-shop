@@ -1,11 +1,11 @@
 // tests/login.spec.js
-import { test, expect } from "../fixtures/pages.js";
-import loginButtonCases from '../test-data/login-buttons.json' with {type: 'json'};
+import { test, expect } from '../fixtures/pages.js';
+import loginButtonCases from '../test-data/login-buttons.json' with { type: 'json' };
 
 test.describe('登入', () => {
-  test.beforeEach(async({ registerPage }) => {
+  test.beforeEach(async ({ registerPage }) => {
     await registerPage.registerOverlayHandlers();
-  })
+  });
 
   test('正確帳密可以登入並進到商品頁', async ({ page, newUser, loginPage }) => {
     await loginPage.open();
@@ -22,19 +22,23 @@ test.describe('登入', () => {
     await expect(page).toHaveURL(/#\/login/);
   });
 
-  for(const testCase of loginButtonCases) {
-    test(`登入按鈕狀態：${ testCase.title }`, async({ loginPage }) => {
+  for (const testCase of loginButtonCases) {
+    test(`登入按鈕狀態：${testCase.title}`, async ({ loginPage }) => {
       await loginPage.open();
       await loginPage.fillCredentials(testCase.email, testCase.password);
-      await expect(loginPage.loginButton, `${ testCase.title }，Login 按鈕可點擊應為 ${ testCase.enabled }`).toBeEnabled({ enabled: testCase.enabled });
+      await expect(loginPage.loginButton, `${testCase.title}，Login 按鈕可點擊應為 ${testCase.enabled}`).toBeEnabled({
+        enabled: testCase.enabled,
+      });
     });
   }
 
-  test('登入按鈕狀態：同一頁依序切換', async({ loginPage }) => {
+  test('登入按鈕狀態：同一頁依序切換', async ({ loginPage }) => {
     await loginPage.open();
-    for(const testCase of loginButtonCases) {
-        await loginPage.fillCredentials(testCase.email, testCase.password);
-        await expect(loginPage.loginButton, `${ testCase.title }，Login 按鈕可點擊應為 ${ testCase.enabled }`).toBeEnabled({ enabled: testCase.enabled });
-    };
+    for (const testCase of loginButtonCases) {
+      await loginPage.fillCredentials(testCase.email, testCase.password);
+      await expect(loginPage.loginButton, `${testCase.title}，Login 按鈕可點擊應為 ${testCase.enabled}`).toBeEnabled({
+        enabled: testCase.enabled,
+      });
+    }
   });
 });

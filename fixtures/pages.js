@@ -49,15 +49,15 @@ export const test = base.extend({
    * @param {{ request: import('@playwright/test').APIRequestContext }} fixtures
    * @param {(value: { email: string, password: string }) => Promise<void>} use
    */
-  newUser: async({ request }, use) => {
+  newUser: async ({ request }, use) => {
     const email = `user_${Date.now()}${randomUUID().slice(0, 8)}@test.com`;
     const password = process.env.TEST_PASSWORD || '111111';
     const response = await request.post('/api/Users', {
-      data:{
+      data: {
         email,
         password,
-        passwordRepeat: password
-      }
+        passwordRepeat: password,
+      },
     });
     await expect(response).toBeOK();
     await use({ email, password });
@@ -65,10 +65,10 @@ export const test = base.extend({
   /**
    * 每個測試開頁前先塞好「已同意 cookie」，讓 cookie 橫幅不會出現
    */
-  context: async({ context, baseURL }, use) => {
-    await context.addCookies([{name: 'cookieconsent_status', value: 'dismiss', url: baseURL}]);
+  context: async ({ context, baseURL }, use) => {
+    await context.addCookies([{ name: 'cookieconsent_status', value: 'dismiss', url: baseURL }]);
     await use(context);
-  }
+  },
 });
 
 export { expect };

@@ -10,6 +10,6 @@ test('建立登入狀態', async ({ page, newUser, loginPage }) => {
   await loginPage.open();
   await loginPage.login(newUser.email, newUser.password);
   await expect(page).toHaveURL(/\/#\/search/);
-  await page.context().storageState({ path: authFile});
+  await page.context().storageState({ path: authFile });
   await writeFile(userInfoFile, JSON.stringify({ email: newUser.email }));
 });

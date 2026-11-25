@@ -27,7 +27,7 @@ export class BasePage {
    * @returns {Promise<void>}
    */
   async registerOverlayHandlers() {
-    await this.page.addLocatorHandler(this.welcomeCloseButton, async() => {
+    await this.page.addLocatorHandler(this.welcomeCloseButton, async () => {
       await this.welcomeCloseButton.click();
     });
   }
@@ -46,6 +46,6 @@ export class BasePage {
    * @returns {Promise<void>}
    */
   async waitForWelcomeBanner() {
-   await this.welcomeCloseButton.waitFor();
+    await this.welcomeCloseButton.waitFor();
   }
 }

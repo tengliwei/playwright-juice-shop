@@ -9,28 +9,28 @@
 
 ## 技術棧
 
-| 項目 | 使用 |
-| --- | --- |
-| 語言 | JavaScript（ES Modules） |
-| 測試框架 | `@playwright/test` 1.65 |
-| 執行環境 | Node.js 24 |
-| 被測系統 | OWASP Juice Shop（Docker 容器） |
-| CI / 報告 | GitHub Actions、GitHub Pages |
+| 項目      | 使用                            |
+| --------- | ------------------------------- |
+| 語言      | JavaScript（ES Modules）        |
+| 測試框架  | `@playwright/test` 1.65         |
+| 執行環境  | Node.js 24                      |
+| 被測系統  | OWASP Juice Shop（Docker 容器） |
+| CI / 報告 | GitHub Actions、GitHub Pages    |
 
 ## 測試範圍
 
 共 16 條測試（含 1 條登入狀態 setup）。
 
-| 檔案 | 測什麼 |
-| --- | --- |
-| `smoke.spec.js` | 首頁能打開；歡迎彈窗會被自動關掉，不擋住後續點擊 |
-| `auth.spec.js` | 從畫面註冊新帳號，登入後帳號選單顯示註冊的 email |
-| `login.spec.js` | 登入成功、密碼錯誤停在登入頁；Login 按鈕在不同填寫狀態下的啟用／停用（資料驅動） |
-| `profile.spec.js` | 設定使用者名稱後重新打開頁面仍是新名字；新帳號沒有使用者名稱 |
-| `basket.spec.js` | 帶登入狀態開購物車會顯示目前帳號；未登入的對照組沒有標題 |
-| `search.spec.js` | 搜尋並加入一瓶 Apple Juice，購物車數量與總價正確 |
+| 檔案               | 測什麼                                                                            |
+| ------------------ | --------------------------------------------------------------------------------- |
+| `smoke.spec.js`    | 首頁能打開；歡迎彈窗會被自動關掉，不擋住後續點擊                                  |
+| `auth.spec.js`     | 從畫面註冊新帳號，登入後帳號選單顯示註冊的 email                                  |
+| `login.spec.js`    | 登入成功、密碼錯誤停在登入頁；Login 按鈕在不同填寫狀態下的啟用／停用（資料驅動）  |
+| `profile.spec.js`  | 設定使用者名稱後重新打開頁面仍是新名字；新帳號沒有使用者名稱                      |
+| `basket.spec.js`   | 帶登入狀態開購物車會顯示目前帳號；未登入的對照組沒有標題                          |
+| `search.spec.js`   | 搜尋並加入一瓶 Apple Juice，購物車數量與總價正確                                  |
 | `checkout.spec.js` | 搜尋 → 加入購物車 → 新增地址 → 選送貨方式 → 新增信用卡 → 下單，驗證總價與訂單編號 |
-| `auth.setup.js` | 先跑一次，登入後把登入狀態存成檔案，給需要的測試直接沿用 |
+| `auth.setup.js`    | 先跑一次，登入後把登入狀態存成檔案，給需要的測試直接沿用                          |
 
 ## 架構
 
@@ -92,19 +92,19 @@ flowchart LR
    cp .env.example .env
    ```
 
-   | 變數 | 用途 | 預設值 |
-   | --- | --- | --- |
-   | `BASE_URL` | Juice Shop 網址 | `http://localhost:3000` |
-   | `TEST_PASSWORD` | 測試帳號的密碼 | `111111` |
+   | 變數            | 用途            | 預設值                  |
+   | --------------- | --------------- | ----------------------- |
+   | `BASE_URL`      | Juice Shop 網址 | `http://localhost:3000` |
+   | `TEST_PASSWORD` | 測試帳號的密碼  | `111111`                |
 
 4. 執行測試：
 
-   | 指令 | 說明 |
-   | --- | --- |
-   | `npm test` | 無頭模式跑全部測試 |
-   | `npm run test:headed` | 開著瀏覽器畫面跑 |
-   | `npm run test:ui` | Playwright UI 模式（終端機會印出網址，用瀏覽器打開） |
-   | `npm run report` | 打開上一次的 HTML 報告 |
+   | 指令                  | 說明                                                 |
+   | --------------------- | ---------------------------------------------------- |
+   | `npm test`            | 無頭模式跑全部測試                                   |
+   | `npm run test:headed` | 開著瀏覽器畫面跑                                     |
+   | `npm run test:ui`     | Playwright UI 模式（終端機會印出網址，用瀏覽器打開） |
+   | `npm run report`      | 打開上一次的 HTML 報告                               |
 
    失敗的測試會在 `test-results/` 留下 trace、影片、截圖，可以用 `npx playwright show-trace <trace.zip 路徑>` 逐步回放。
 

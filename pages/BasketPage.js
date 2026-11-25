@@ -11,7 +11,7 @@ export class BasketPage extends BasePage {
     super(page);
     this.heading = page.getByRole('heading', { name: 'Your Basket' });
     this.totalPrice = page.getByText(/Total Price/);
-    this.checkoutButton = page.getByRole('button', { name: 'Checkout', exact: true});
+    this.checkoutButton = page.getByRole('button', { name: 'Checkout', exact: true });
   }
 
   /**
