@@ -7,7 +7,9 @@
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui-host=127.0.0.1 --ui-port=0",
     "report": "playwright show-report",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
     "@playwright/test": "^1.65.0",
     "eslint": "^10.15.0",
     "eslint-plugin-playwright": "^2.12.2",
-    "globals": "^17.14.0"
+    "globals": "^17.14.0",
+    "prettier": "^3.10.1"
   }
 }
